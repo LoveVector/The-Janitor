@@ -6,7 +6,7 @@ public class Movement : MonoBehaviour
 {
     private Rigidbody rb;
     private Vector3 movement;
-    public float speed;
+    float speed;
     public float runSpeed;
     public float walkSpeed;
     bool running = false;
@@ -30,13 +30,13 @@ public class Movement : MonoBehaviour
         {
             running = true;
             speed = runSpeed;
-            print("Running");
+            Debug.Log("Running");
         }
         else
         {
             running = false;
             speed = walkSpeed;
-            print("walking");
+            Debug.Log("walking");
         }
     }
 
