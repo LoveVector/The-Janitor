@@ -8,11 +8,11 @@ public class Raycast : MonoBehaviour
     public GameObject fire;
     int range = 10;
 
-    Vector3 endPoint;
-    // Start is called before the first frame update
+    Vector3 startPoint;
+    
     void Start()
     {
-        endPoint = camera.WorldToViewportPoint(new Vector3(0.5f, 0.5f, 10));
+        startPoint = camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
     }
 
     // Update is called once per frame
@@ -23,6 +23,6 @@ public class Raycast : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawRay(fire.transform.position, endPoint);
+        Gizmos.DrawRay(startPoint, camera.transform.forward * 10f);
     }
 }
