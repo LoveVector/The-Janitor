@@ -25,7 +25,6 @@ public class Movement : MonoBehaviour
         movement = cameraTransform.TransformDirection(movement);
         movement.y = 0.0f;
 
-
         if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift))
         {
             running = true;
