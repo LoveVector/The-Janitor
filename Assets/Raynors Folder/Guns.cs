@@ -7,12 +7,14 @@ public abstract class Guns : MonoBehaviour
     public int damage;
     public float range;
     public float fireRate;
-    float lastShot = 0;
+    protected float lastShot = 0;
+
+    protected Animator anim;
 
     public GameObject firePoint;
     public GameObject bullet;
 
-    BulletScript bulletScript;
+    protected BulletScript bulletScript;
 
     protected int enemyLayer;
     public Camera cam;
@@ -21,16 +23,17 @@ public abstract class Guns : MonoBehaviour
     { 
         Vector3 startPoint = cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
 
-        if (Input.GetMouseButtonDown(0) && Time.time - lastShot >= fireRate)
+        if (Input.GetMouseButtonDown(0) && Time.time >= lastShot)
         {
+            lastShot = Time.time + fireRate;
             RaycastHit hit;
             if (Physics.Raycast(startPoint, cam.transform.forward, out hit, range))
             {
-                    Debug.Log("Shot");
-                    GameObject newBull = Instantiate(bullet, firePoint.transform.position, firePoint.transform.rotation);
-                    bulletScript = newBull.GetComponent<BulletScript>();
-                    bulletScript.target = hit.point;
-                
+                Debug.Log("Shot");
+                GameObject newBull = Instantiate(bullet, firePoint.transform.position, firePoint.transform.rotation);
+                bulletScript = newBull.GetComponent<BulletScript>();
+                bulletScript.target = hit.point;
+                anim.SetTrigger("Fire");
             }
             else
             {
@@ -38,6 +41,7 @@ public abstract class Guns : MonoBehaviour
                 GameObject newBull = Instantiate(bullet, firePoint.transform.position, firePoint.transform.rotation);
                 bulletScript = newBull.GetComponent<BulletScript>();
                 bulletScript.target = startPoint + cam.transform.forward * range;
+                anim.SetTrigger("Fire"); 
             }
         }
     }
