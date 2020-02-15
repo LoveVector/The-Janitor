@@ -24,4 +24,9 @@ public class BulletScript : MonoBehaviour
 
         Destroy(this.gameObject, 2f);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Destroy(this.gameObject);
+    }
 }
