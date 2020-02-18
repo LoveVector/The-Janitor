@@ -9,11 +9,21 @@ public class Pistol : Guns
     {
         enemyLayer = LayerMask.NameToLayer("Enemy");
         anim = GetComponent<Animator>();
+        ammo = beginningAmmo;
     }
 
     // Update is called once per frame
     void Update()
     {
         Fire();
+        Reload();
+    }
+
+    public override void Reload()
+    {
+        if(ammo == 0)
+        {
+            ammo = beginningAmmo;
+        }
     }
 }

@@ -5,6 +5,10 @@ using UnityEngine;
 public abstract class Guns : MonoBehaviour
 {
     public int damage;
+    protected int ammo;
+    public int ammoCap;
+    public int beginningAmmo;
+
     public float range;
     public float fireRate;
     protected float lastShot = 0;
@@ -23,25 +27,40 @@ public abstract class Guns : MonoBehaviour
     { 
         Vector3 startPoint = cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
 
-        if (Input.GetMouseButtonDown(0) && Time.time >= lastShot)
+        if (Input.GetMouseButtonDown(0) && Time.time >= lastShot && ammo > 0)
         {
+            ammo--;
+            anim.SetTrigger("Fire");
             lastShot = Time.time + fireRate;
             RaycastHit hit;
             if (Physics.Raycast(startPoint, cam.transform.forward, out hit, range))
             {
-                Debug.Log("Shot");
                 GameObject newBull = Instantiate(bullet, firePoint.transform.position, firePoint.transform.rotation);
                 bulletScript = newBull.GetComponent<BulletScript>();
                 bulletScript.target = hit.point;
-                anim.SetTrigger("Fire");
             }
             else
             {
-                Debug.Log("Hit");
                 GameObject newBull = Instantiate(bullet, firePoint.transform.position, firePoint.transform.rotation);
                 bulletScript = newBull.GetComponent<BulletScript>();
-                bulletScript.target = startPoint + cam.transform.forward * range;
-                anim.SetTrigger("Fire"); 
+                bulletScript.target = startPoint + cam.transform.forward * range; 
+            }
+        }
+    }
+
+    public virtual void Reload()
+    {
+        if (ammo == 0 && ammoCap > 0)
+        {
+            if(ammoCap >= beginningAmmo)
+            {
+                ammo = beginningAmmo;
+                ammoCap -= beginningAmmo;
+            }
+            else
+            {
+                ammo = ammoCap;
+                ammoCap -= ammoCap;
             }
         }
     }
