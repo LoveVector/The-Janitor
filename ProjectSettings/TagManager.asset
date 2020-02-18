@@ -4,7 +4,11 @@
 TagManager:
   serializedVersion: 2
   tags:
+<<<<<<< HEAD
   - Enemy
+=======
+  - Ground
+>>>>>>> CoolerKyleBranch
   layers:
   - Default
   - TransparentFX
@@ -14,8 +18,13 @@ TagManager:
   - UI
   - 
   - 
+<<<<<<< HEAD
   - Player
   - Enemy
+=======
+  - Ground
+  - 
+>>>>>>> CoolerKyleBranch
   - 
   - 
   - 
