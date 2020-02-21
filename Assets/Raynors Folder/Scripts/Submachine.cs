@@ -34,14 +34,12 @@ public class Submachine : Guns
                 RaycastHit hit;
                 if (Physics.Raycast(startPoint, cam.transform.forward + new Vector3(0, recoilY, 0), out hit, range))
                 {
-                    Debug.Log("Shot");
                     GameObject newBull = Instantiate(bullet, firePoint.transform.position, firePoint.transform.rotation);
                     bulletScript = newBull.GetComponent<BulletScript>();
                     bulletScript.target = hit.point + new Vector3(0, recoilY, 0);
                 }
                 else
                 {
-                    Debug.Log("Hit");
                     GameObject newBull = Instantiate(bullet, firePoint.transform.position, firePoint.transform.rotation);
                     bulletScript = newBull.GetComponent<BulletScript>();
                     bulletScript.target = startPoint + (cam.transform.forward * range) + new Vector3(0, recoilY, 0);

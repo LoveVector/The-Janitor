@@ -156,9 +156,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  runSpeed: 10
-  walkSpeed: 5
-  cameraTransform: {fileID: 8686416872147051772}
+  dashT: 0
+  dashSp: 0
+  jumpH: 0
+  slideTime: 0
+  collidanim: {fileID: 0}
 --- !u!1 &8686416872147051775
 GameObject:
   m_ObjectHideFlags: 0

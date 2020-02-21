@@ -30,7 +30,7 @@ public class Shotgun : Guns
         if (Input.GetMouseButtonDown(0) && Time.time >= lastShot && ammo > 0)
         {
             ammo--;
-            Debug.Log(firePoint.transform.position.z + " " + firePoint2.transform.position.z);
+           // Debug.Log(firePoint.transform.position.z + " " + firePoint2.transform.position.z);
             lastShot = Time.time + fireRate;
                 GameObject newBull = Instantiate(bullet, firePoint.transform.position, firePoint.transform.rotation);
                 bulletScript = newBull.GetComponent<BulletScript>();
