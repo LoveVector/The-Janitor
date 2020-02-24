@@ -9,41 +9,54 @@ public class Movement : MonoBehaviour
     private Vector3 movement;
     Vector3 slideDir;
 
+    public Transform player;
+
+    public LayerMask groundLayer;
+
     public float speed;
+    public float wSpeed;
     public float dashT;
     public float dashSp;
     public float jumpH;
+    public float slideSpeed;
     public float slideTime;
+    public float slideTimeMax;
 
-    bool crouch = false;
+    bool crouching = false;
     bool isGrounded;
     bool sliding = false;
-
-    Animator anim;
-    public Animator collidanim;
-
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        RaycastHit hit;
+        isGrounded = Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 20, groundLayer);
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            Crouch();
-        }        
+            StartCrouch();
+        }
+        if (Input.GetKeyUp(KeyCode.LeftControl))
+        {
+            StopCrouch();
+        }
+
+        if (!isGrounded)
+        {
+            Debug.Log("Hitting ground");
+        }
     }
 
     void FixedUpdate()
     {
         Move();
 
-        if (isGrounded = true && Input.GetKeyDown(KeyCode.Space))
+        if (!isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
             rb.velocity = new Vector3(rb.velocity.x, jumpH, rb.velocity.z);
             Debug.Log("Jumping");
@@ -54,25 +67,39 @@ public class Movement : MonoBehaviour
             StartCoroutine(Dash());  
         }
 
-        if(Input.GetKey(KeyCode.C))
+        if(!sliding && Input.GetKeyDown(KeyCode.C))
         {
-            sliding = true;
-            slideDir = transform.TransformDirection(movement);
+            //sliding = true;
+            //speed = slideSpeed;
+
+            //if(sliding)
+            //{
+            //    slideTime = 0.0f;
+            //    //transform.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
+            //    transform.localScale = new Vector3(1, 0.7f, 1);
+            //    speed = slideSpeed;
+            //    rb.velocity = transform.forward * slideSpeed;
+
+            //    slideTime += Time.deltaTime;
+
+            //    if(slideTime > slideTimeMax)
+            //    {
+            //        sliding = false;
+            //    }
+            //}
+            //slideDir = transform.TransformDirection(movement);
             //crouch = true;
-            slideTime -= Time.deltaTime;
+            //slideTime -= Time.deltaTime;
             //anim.SetBool("isCrouching", true);
             //collidanim.SetBool("isCrouched", true);
-            rb.velocity = slideDir;
-            if (slideTime <= 0)
-            {
-                sliding = false;
-            }
+            //rb.velocity = slideDir;
+            //if (slideTime <= 0)
             Debug.Log("sliding");
         }
         else
         {
             sliding = false;
-            slideTime = 3.0f;
+            //slideTime = 3.0f;
             //anim.SetBool("isCrouching", false);
             //collidanim.SetBool("isCrouched", false);
             //crouch = false;
@@ -88,6 +115,7 @@ public class Movement : MonoBehaviour
 
     void Move()
     {
+        speed = wSpeed;
         movement = Quaternion.Euler(0, rb.transform.eulerAngles.y, 0) * new Vector3(Input.GetAxis("Horizontal") * speed, rb.velocity.y, Input.GetAxis("Vertical") * speed);
         rb.velocity = movement;
 
@@ -107,21 +135,19 @@ public class Movement : MonoBehaviour
 
     void Crouch()
     {
-        if (crouch == false)
-        {
-                crouch = true;
-                anim.SetBool("isCrouching", true);
-                collidanim.SetBool("isCrouched", true);
-                float slideForce = 400;
-                rb.AddForce(transform.forward * slideForce);
-                //anim.SetBool("isRunning", false);
-        }
-        else
-        {
-            crouch = false;
-            anim.SetBool("isCrouching", false);
-            collidanim.SetBool("isCrouched", false);
-        }
+        //if (crouching == false)
+        //{
+        //        crouch = true;
+        //        //anim.SetBool("isCrouching", true);
+        //        //collidanim.SetBool("isCrouched", true);
+        //        //anim.SetBool("isRunning", false);
+        //}
+        //else
+        //{
+        //    crouch = false;
+        //    //anim.SetBool("isCrouching", false);
+        //    //collidanim.SetBool("isCrouched", false);
+        //}
     }
 
     void OnCollisionEnter(Collision collision)
@@ -138,5 +164,37 @@ public class Movement : MonoBehaviour
         {
             isGrounded = false;
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        //RaycastHit hit;
+        //Physics.SphereCast(jumpChecker.position, radius, Vector3.down, out hit, 20, groundLayer);
+    }
+
+    void StartCrouch()
+    {
+        //float slideForce = 400;
+        transform.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
+        transform.localScale = new Vector3(1, 0.7f, 1);
+        crouching = true;
+
+        //if(rb.velocity.magnitude > 0.5f)
+        //if (isGrounded)
+        //{
+        //        rb.velocity = player.transform.forward * slideForce;
+        //}
+
+        //if (crouching)
+        //{
+        //    rb.AddForce(speed * Time.deltaTime * -rb.velocity.normalized * slideCounterMovement);
+        //    return;
+        //}
+    }
+
+    void StopCrouch()
+    {
+        transform.localScale = new Vector3(1, 1, 1);
+        transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
     }
 }
