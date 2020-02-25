@@ -685,7 +685,7 @@ MonoBehaviour:
   attackRate: 0.5
   lastAttackTime: 0
   runSpeed: 4
-  injuredSpeed: 2
+  injuredSpeed: 1
   lastAttack: 0
   speed: 0
   dead: 0
@@ -707,7 +707,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 84
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!1 &1337029073 stripped
 GameObject:
@@ -1177,6 +1177,11 @@ PrefabInstance:
         type: 3}
       propertyPath: ammoCap
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8686416871302401852, guid: ce9ea6420bd0c6f4da650aebb7b1d1ed,
+        type: 3}
+      propertyPath: m_UpdateMode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8686416871302401853, guid: ce9ea6420bd0c6f4da650aebb7b1d1ed,
         type: 3}
