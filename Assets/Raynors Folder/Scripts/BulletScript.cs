@@ -7,32 +7,48 @@ public class BulletScript : MonoBehaviour
     public float speed;
     public float despawnTime;
 
+    public int damage;
+
     public Vector3 target;
     Vector3 movement;
 
-    int bulletLayer;
+    public RaycastHit hit;
+
+    int enemyLayer;
 
     Rigidbody rb;
     // Start is called before the first frame update
     void Start()
     {
-        bulletLayer = LayerMask.NameToLayer("Bullet");
+        enemyLayer = LayerMask.NameToLayer("Enemy");
         rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
-    { 
-        rb.velocity = (target - transform.position).normalized * speed * Time.deltaTime;
+    {
+        //Vector3 norm = (target - transform.position).normalized;
+        //Vector3 distance = (target - transform.position);
+        //if (distance.magnitude <= norm.magnitude)
+        //{
+        //    Destroy(this.gameObject);
+        //}
+        //else
+        //{
+        //    rb.velocity = (target - transform.position).normalized * speed * Time.deltaTime;
+        //}
 
-        Destroy(this.gameObject, 1f);
+        transform.position = Vector3.MoveTowards(transform.position, target, Time.deltaTime * speed);
     }
 
     private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.layer != bulletLayer)
+    {   
+        if(other.gameObject.layer == enemyLayer)
         {
-            Destroy(this.gameObject);
+            BasicMeleeEnemey basic = other.gameObject.GetComponentInParent<BasicMeleeEnemey>();
+            basic.hit = hit;
+            basic.Damage(damage);
         }
+            Destroy(this.gameObject);
     }
 }

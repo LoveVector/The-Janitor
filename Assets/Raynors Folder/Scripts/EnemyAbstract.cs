@@ -9,15 +9,12 @@ public abstract class EnemyAbstract : MonoBehaviour
     public int bulletLayer;
 
     public float attackRate;
-    public float lastAttackTime;
     public float runSpeed;
-    public float injuredSpeed;
     public float lastAttack;
 
     public float speed;
 
     public bool dead = false;
-    public bool surrender = false;
 
     public Animator anim;
 
@@ -35,12 +32,10 @@ public abstract class EnemyAbstract : MonoBehaviour
     {
         
     }
-    protected void OnTriggerEnter(Collider other)
+
+    public virtual void Damage(int damage)
     {
-        Debug.Log("this");
-        if (other.gameObject.layer == bulletLayer)
-        {
-            health -= 10;
-        }
+        Debug.Log("Damaged");
+        health -= damage;
     }
 }

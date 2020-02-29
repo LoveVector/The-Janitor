@@ -32,17 +32,19 @@ public abstract class Guns : MonoBehaviour
             ammo--;
             anim.SetTrigger("Fire");
             lastShot = Time.time + fireRate;
+
+            GameObject newBull = Instantiate(bullet, firePoint.transform.position, firePoint.transform.rotation);
+            bulletScript = newBull.GetComponent<BulletScript>();
+            bulletScript.damage = damage;
+
             RaycastHit hit;
             if (Physics.Raycast(startPoint, cam.transform.forward, out hit, range))
             {
-                GameObject newBull = Instantiate(bullet, firePoint.transform.position, firePoint.transform.rotation);
-                bulletScript = newBull.GetComponent<BulletScript>();
                 bulletScript.target = hit.point;
+                bulletScript.hit = hit;
             }
             else
             {
-                GameObject newBull = Instantiate(bullet, firePoint.transform.position, firePoint.transform.rotation);
-                bulletScript = newBull.GetComponent<BulletScript>();
                 bulletScript.target = startPoint + cam.transform.forward * range; 
             }
         }
