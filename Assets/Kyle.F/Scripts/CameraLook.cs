@@ -9,6 +9,14 @@ public class CameraLook : MonoBehaviour
     public float RotSpeed = 6f;
     public GameObject camera;
 
+    float headsp = 1;
+    float stepcount;
+    float xamount = 1;
+    float yamount = 1;
+    Vector3 lastPos;
+    float h = 0.9f;
+
+
     // Start is called before the first frame update
     void Start()
     {

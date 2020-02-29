@@ -8,7 +8,11 @@ public class InjuredRunNode : Node
     {
         if (con.health <= 50)
         {
+<<<<<<< HEAD
             //con.speed = con.injuredSpeed;
+=======
+            con.speed = con.injuredSpeed;
+>>>>>>> CoolerKyleBranch
             con.anim.SetFloat("Blend", 1);
             return 2;
         }

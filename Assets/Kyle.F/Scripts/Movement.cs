@@ -9,25 +9,32 @@ public class Movement : MonoBehaviour
     private Vector3 movement;
     Vector3 slideDir;
 
+    public Transform player;
+
+    public LayerMask groundLayer;
+
     public float speed;
     public float dashT;
     public float dashSp;
     public float jumpH;
-    public float slideTime;
+    //public float slideSpeed;
+    //public float slideTime;
+    //public float slideTimeMax;
 
-    bool crouch = false;
+    bool crouching = false;
     bool isGrounded;
     bool sliding = false;
 
-    Animator anim;
-    public Animator collidanim;
+    int weaponsCount;
+    int weaponSelected = 0;
 
+    public bool weaponsEnabled;
+    public GameObject[] weapons;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -35,15 +42,29 @@ public class Movement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            Crouch();
-        }        
+            StartCrouch();
+        }
+        if (Input.GetKeyUp(KeyCode.LeftControl))
+        {
+            StopCrouch();
+        }
+
+        if (!isGrounded)
+        {
+            Debug.Log("Hitting ground");
+        }
+
+        WeaponSwitch();
     }
 
     void FixedUpdate()
     {
         Move();
 
-        if (isGrounded = true && Input.GetKeyDown(KeyCode.Space))
+        RaycastHit hit;
+        isGrounded = Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 1, groundLayer);
+
+        if (isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
             rb.velocity = new Vector3(rb.velocity.x, jumpH, rb.velocity.z);
             Debug.Log("Jumping");
@@ -52,30 +73,6 @@ public class Movement : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.LeftShift))
         {
             StartCoroutine(Dash());  
-        }
-
-        if(Input.GetKey(KeyCode.C))
-        {
-            sliding = true;
-            slideDir = transform.TransformDirection(movement);
-            //crouch = true;
-            slideTime -= Time.deltaTime;
-            //anim.SetBool("isCrouching", true);
-            //collidanim.SetBool("isCrouched", true);
-            rb.velocity = slideDir;
-            if (slideTime <= 0)
-            {
-                sliding = false;
-            }
-            Debug.Log("sliding");
-        }
-        else
-        {
-            sliding = false;
-            slideTime = 3.0f;
-            //anim.SetBool("isCrouching", false);
-            //collidanim.SetBool("isCrouched", false);
-            //crouch = false;
         }
     }
 
@@ -90,38 +87,6 @@ public class Movement : MonoBehaviour
     {
         movement = Quaternion.Euler(0, rb.transform.eulerAngles.y, 0) * new Vector3(Input.GetAxis("Horizontal") * speed, rb.velocity.y, Input.GetAxis("Vertical") * speed);
         rb.velocity = movement;
-
-        //float h = Input.GetAxis("Horizontal");
-        //float v = Input.GetAxis("Vertical");
-
-        //movement = new Vector3(h, rb.velocity.y, v);
-        //movement = movement.normalized;
-        //movement = transform.TransformDirection(movement);
-
-        //Vector3 pvelocity = movement * speed * Time.deltaTime;
-        //rb.velocity = movement;
-
-        //movement = cameraTransform.TransformDirection(movement);
-        //movement.y = 0.0f;
-    }
-
-    void Crouch()
-    {
-        if (crouch == false)
-        {
-                crouch = true;
-                anim.SetBool("isCrouching", true);
-                collidanim.SetBool("isCrouched", true);
-                float slideForce = 400;
-                rb.AddForce(transform.forward * slideForce);
-                //anim.SetBool("isRunning", false);
-        }
-        else
-        {
-            crouch = false;
-            anim.SetBool("isCrouching", false);
-            collidanim.SetBool("isCrouched", false);
-        }
     }
 
     void OnCollisionEnter(Collision collision)
@@ -137,6 +102,74 @@ public class Movement : MonoBehaviour
         if(collision.gameObject.tag == "Ground")
         {
             isGrounded = false;
+        }
+    }
+
+    void StartCrouch()
+    {
+        //float slideForce = 400;
+        transform.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
+        transform.localScale = new Vector3(1, 0.7f, 1);
+    }
+
+    void StopCrouch()
+    {
+        transform.localScale = new Vector3(1, 1, 1);
+        transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
+    }
+
+    void WeaponSwitch()
+    {
+        for (int i = 0; i < weapons.Length; i++)
+        {
+            if (weaponsEnabled == false)
+            {
+                weapons[i].SetActive(false);
+            }
+            else
+            {
+                if (weaponSelected == i)
+                {
+                    weapons[i].SetActive(true);
+                }
+                else
+                {
+                    weapons[i].SetActive(false);
+                }
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            weaponSelected = 0;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            weaponSelected = 1;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            weaponSelected = 2;
+        }
+
+        if (Input.GetAxis("Mouse ScrollWheel") > 0f)
+        {
+            weaponSelected++;
+
+            if (weaponSelected >= weapons.Length)
+            {
+                weaponSelected = 0;
+            }
+        }
+
+        if (Input.GetAxis("Mouse ScrollWheel") < 0f)
+        {
+            weaponSelected--;
+
+            if (weaponSelected < weapons.Length - weapons.Length)
+            {
+                weaponSelected = weapons.Length - 1;
+            }
         }
     }
 }

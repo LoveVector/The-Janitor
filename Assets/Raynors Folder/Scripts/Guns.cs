@@ -32,6 +32,7 @@ public abstract class Guns : MonoBehaviour
             ammo--;
             anim.SetTrigger("Fire");
             lastShot = Time.time + fireRate;
+<<<<<<< HEAD
 
             GameObject newBull = Instantiate(bullet, firePoint.transform.position, firePoint.transform.rotation);
             bulletScript = newBull.GetComponent<BulletScript>();
@@ -45,6 +46,19 @@ public abstract class Guns : MonoBehaviour
             }
             else
             {
+=======
+            RaycastHit hit;
+            if (Physics.Raycast(startPoint, cam.transform.forward, out hit, range))
+            {
+                GameObject newBull = Instantiate(bullet, firePoint.transform.position, firePoint.transform.rotation);
+                bulletScript = newBull.GetComponent<BulletScript>();
+                bulletScript.target = hit.point;
+            }
+            else
+            {
+                GameObject newBull = Instantiate(bullet, firePoint.transform.position, firePoint.transform.rotation);
+                bulletScript = newBull.GetComponent<BulletScript>();
+>>>>>>> CoolerKyleBranch
                 bulletScript.target = startPoint + cam.transform.forward * range; 
             }
         }
