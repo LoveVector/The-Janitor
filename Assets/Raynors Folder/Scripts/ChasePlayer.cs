@@ -10,7 +10,7 @@ public class ChasePlayer : Node
         {
             Vector3 distance = (con.player.transform.position - con.transform.position).normalized;
             con.transform.LookAt(new Vector3(con.player.transform.position.x, con.transform.position.y, con.player.transform.position.z));
-            distance.y = 0;
+            //distance.y = 0;
             con.transform.position += distance * con.speed * Time.deltaTime;
             return 1;
         }

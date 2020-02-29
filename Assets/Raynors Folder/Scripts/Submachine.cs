@@ -11,6 +11,7 @@ public class Submachine : Guns
         enemyLayer = LayerMask.NameToLayer("Enemy");
         anim = GetComponent<Animator>();
         ammo = beginningAmmo;
+
     }
 
     // Update is called once per frame
@@ -29,21 +30,23 @@ public class Submachine : Guns
             if (Time.time >= lastShot)
             {
                 ammo--;
-                recoilY += 0.4f;
                 lastShot = Time.time + fireRate;
+
+                GameObject newBull = Instantiate(bullet, firePoint.transform.position, firePoint.transform.rotation);
+                bulletScript = newBull.GetComponent<BulletScript>();
+                bulletScript.damage = damage;
+
                 RaycastHit hit;
-                if (Physics.Raycast(startPoint, cam.transform.forward + new Vector3(0, recoilY, 0), out hit, range))
+                if (Physics.Raycast(startPoint, cam.transform.forward, out hit, range))
                 {
-                    GameObject newBull = Instantiate(bullet, firePoint.transform.position, firePoint.transform.rotation);
-                    bulletScript = newBull.GetComponent<BulletScript>();
-                    bulletScript.target = hit.point + new Vector3(0, recoilY, 0);
+                    bulletScript.target = hit.point;
+                    bulletScript.hit = hit;
                 }
                 else
                 {
-                    GameObject newBull = Instantiate(bullet, firePoint.transform.position, firePoint.transform.rotation);
-                    bulletScript = newBull.GetComponent<BulletScript>();
-                    bulletScript.target = startPoint + (cam.transform.forward * range) + new Vector3(0, recoilY, 0);
+                    bulletScript.target = startPoint + cam.transform.forward * range;
                 }
+                recoilY += 0.4f;
             }
         }
         else
