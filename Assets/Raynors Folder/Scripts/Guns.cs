@@ -40,6 +40,7 @@ public abstract class Guns : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(startPoint, cam.transform.forward, out hit, range))
             {
+                Debug.Log("Hitpoint");
                 bulletScript.target = hit.point;
                 bulletScript.hit = hit;
             }

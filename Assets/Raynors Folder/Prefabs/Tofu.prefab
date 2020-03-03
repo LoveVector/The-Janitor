@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 934436130240501743}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.558, y: 4.4471045, z: 1.056}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 934436130504550541}
@@ -55,6 +55,7 @@ MonoBehaviour:
   dead: 0
   anim: {fileID: 0}
   player: {fileID: 0}
+  level: {fileID: 0}
   rb: {fileID: 0}
   model: {fileID: 934436130504550529}
 --- !u!95 &934436130240501740
