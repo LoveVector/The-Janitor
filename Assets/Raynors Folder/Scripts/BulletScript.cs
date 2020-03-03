@@ -39,13 +39,14 @@ public class BulletScript : MonoBehaviour
         //}
 
         transform.position = Vector3.MoveTowards(transform.position, target, Time.deltaTime * speed);
+        Destroy(this.gameObject, 1.5f);
     }
 
     private void OnTriggerEnter(Collider other)
     {   
         if(other.gameObject.layer == enemyLayer)
         {
-            BasicMeleeEnemey basic = other.gameObject.GetComponentInParent<BasicMeleeEnemey>();
+            EnemyAbstract basic = other.gameObject.GetComponentInParent<EnemyAbstract>();
             basic.hit = hit;
             basic.Damage(damage);
         }

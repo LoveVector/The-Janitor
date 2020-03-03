@@ -225,6 +225,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
+  ammoCap: 0
+  beginningAmmo: 0
   range: 50
   fireRate: 1
   firePoint: {fileID: 6442155820754461973}

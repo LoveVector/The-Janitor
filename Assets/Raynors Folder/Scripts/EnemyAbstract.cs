@@ -14,11 +14,15 @@ public abstract class EnemyAbstract : MonoBehaviour
 
     public float speed;
 
+    public RaycastHit hit;
+
     public bool dead = false;
 
     public Animator anim;
 
     public GameObject player;
+
+    public LevelManager level;
 
     public Rigidbody rb;
 

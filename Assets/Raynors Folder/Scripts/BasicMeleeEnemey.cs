@@ -7,8 +7,6 @@ public class BasicMeleeEnemey : EnemyAbstract
     enum state { chasing, attacking, dead}
     state enemyState;
 
-    public RaycastHit hit;
-
     public GameObject model;
 
     bool deadForce;
@@ -22,6 +20,12 @@ public class BasicMeleeEnemey : EnemyAbstract
         rb = model.GetComponent<Rigidbody>();
 
         deadForce = false;
+
+        if(player == null)
+        {
+            level.DeadEnemy();
+            Destroy(this.gameObject);
+        }
     }
 
     // Update is called once per frame
@@ -57,7 +61,9 @@ public class BasicMeleeEnemey : EnemyAbstract
                 if (deadForce == false)
                 {
                     rb.AddForce(-hit.normal * 100);
+                    level.DeadEnemy();
                     deadForce = true;
+                    Destroy(this.gameObject, 5f);
                 }
                 break;
             default:
