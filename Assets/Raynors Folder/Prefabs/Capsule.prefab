@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 8686416871898183767}
   - component: {fileID: 8686416871898183766}
   - component: {fileID: 8686416871898183761}
-  - component: {fileID: 8686416871898183765}
   - component: {fileID: 8686416871898183770}
   - component: {fileID: 8686416871898183768}
   - component: {fileID: 8686416871898183771}
@@ -53,7 +52,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8686416871898183760}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -99,20 +98,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8686416871898183765
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8686416871898183760}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5b0e7bb8a8c6aa45bd288af60a09549, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  camera: {fileID: 8686416872147051266}
-  fire: {fileID: 8686416870889496221}
 --- !u!114 &8686416871898183770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,6 +157,7 @@ GameObject:
   - component: {fileID: 8686416872147051772}
   - component: {fileID: 8686416872147051266}
   - component: {fileID: 8686416872147051773}
+  - component: {fileID: 1337029077}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -187,7 +173,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8686416872147051775}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.62, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 594216405913655414}
@@ -247,6 +233,23 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8686416872147051775}
   m_Enabled: 1
+--- !u!114 &1337029077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8686416872147051775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a00ab9e998af7545b6dda884c2dda47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapons:
+  - {fileID: 594216405913916156}
+  - {fileID: 841529956181355641}
+  - {fileID: 8685648969561863807}
+  weaponsEnabled: 1
 --- !u!1001 &2444179754121493384
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -257,12 +260,12 @@ PrefabInstance:
     - target: {fileID: 3014152957217843572, guid: 99e46dbb8d4c75b44ad9657dfc2ee678,
         type: 3}
       propertyPath: m_Name
-      value: 'Pistol '
+      value: HandCannon
       objectReference: {fileID: 0}
     - target: {fileID: 3014152957217843572, guid: 99e46dbb8d4c75b44ad9657dfc2ee678,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3014152957218104318, guid: 99e46dbb8d4c75b44ad9657dfc2ee678,
         type: 3}
@@ -324,17 +327,42 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 8686416872147051266}
+    - target: {fileID: 6442155821419492533, guid: 99e46dbb8d4c75b44ad9657dfc2ee678,
+        type: 3}
+      propertyPath: damage
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6442155821419492533, guid: 99e46dbb8d4c75b44ad9657dfc2ee678,
+        type: 3}
+      propertyPath: ammoCap
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 6442155821419492533, guid: 99e46dbb8d4c75b44ad9657dfc2ee678,
+        type: 3}
+      propertyPath: beginningAmmo
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6442155821419492533, guid: 99e46dbb8d4c75b44ad9657dfc2ee678,
+        type: 3}
+      propertyPath: range
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6442155821419492533, guid: 99e46dbb8d4c75b44ad9657dfc2ee678,
+        type: 3}
+      propertyPath: fireRate
+      value: 0.9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99e46dbb8d4c75b44ad9657dfc2ee678, type: 3}
---- !u!4 &594216405913655414 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3014152957218104318, guid: 99e46dbb8d4c75b44ad9657dfc2ee678,
+--- !u!1 &594216405913916156 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3014152957217843572, guid: 99e46dbb8d4c75b44ad9657dfc2ee678,
     type: 3}
   m_PrefabInstance: {fileID: 2444179754121493384}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &8686416870889496221 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6442155820754461973, guid: 99e46dbb8d4c75b44ad9657dfc2ee678,
+--- !u!4 &594216405913655414 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3014152957218104318, guid: 99e46dbb8d4c75b44ad9657dfc2ee678,
     type: 3}
   m_PrefabInstance: {fileID: 2444179754121493384}
   m_PrefabAsset: {fileID: 0}
@@ -403,32 +431,42 @@ PrefabInstance:
     - target: {fileID: 3411563370810286341, guid: 3e334604633b9de4eaa50e8973f41da8,
         type: 3}
       propertyPath: m_Name
-      value: Shotgun
+      value: XShotgun
       objectReference: {fileID: 0}
     - target: {fileID: 3411563370810286341, guid: 3e334604633b9de4eaa50e8973f41da8,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3413037371498261828, guid: 3e334604633b9de4eaa50e8973f41da8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.034
+      value: 0.033832908
       objectReference: {fileID: 0}
     - target: {fileID: 3413037371498261828, guid: 3e334604633b9de4eaa50e8973f41da8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.141
+      value: 0.14099988
+      objectReference: {fileID: 0}
+    - target: {fileID: 3413037371498261828, guid: 3e334604633b9de4eaa50e8973f41da8,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.0224442
       objectReference: {fileID: 0}
     - target: {fileID: 3413037373178368129, guid: 3e334604633b9de4eaa50e8973f41da8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.121
+      value: -0.12105787
       objectReference: {fileID: 0}
     - target: {fileID: 3413037373178368129, guid: 3e334604633b9de4eaa50e8973f41da8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.131
+      value: 0.13100013
+      objectReference: {fileID: 0}
+    - target: {fileID: 3413037373178368129, guid: 3e334604633b9de4eaa50e8973f41da8,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.0249531
       objectReference: {fileID: 0}
     - target: {fileID: 3413037373460172263, guid: 3e334604633b9de4eaa50e8973f41da8,
         type: 3}
@@ -438,10 +476,37 @@ PrefabInstance:
     - target: {fileID: 3413037373460172263, guid: 3e334604633b9de4eaa50e8973f41da8,
         type: 3}
       propertyPath: fireRate
-      value: 1.4
+      value: 1.6
       objectReference: {fileID: 0}
+    - target: {fileID: 3413037373460172263, guid: 3e334604633b9de4eaa50e8973f41da8,
+        type: 3}
+      propertyPath: damage
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 3413037373460172263, guid: 3e334604633b9de4eaa50e8973f41da8,
+        type: 3}
+      propertyPath: ammoCap
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3413037373460172263, guid: 3e334604633b9de4eaa50e8973f41da8,
+        type: 3}
+      propertyPath: beginningAmmo
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3413037373460172263, guid: 3e334604633b9de4eaa50e8973f41da8,
+        type: 3}
+      propertyPath: bullet
+      value: 
+      objectReference: {fileID: 6814940453286093102, guid: 8ae7876681a731b4d92320a334a8a767,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e334604633b9de4eaa50e8973f41da8, type: 3}
+--- !u!1 &8685648969561863807 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3411563370810286341, guid: 3e334604633b9de4eaa50e8973f41da8,
+    type: 3}
+  m_PrefabInstance: {fileID: 6328069262067455866}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8683553313459151441 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3410347297890858283, guid: 3e334604633b9de4eaa50e8973f41da8,
@@ -460,6 +525,16 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 8686416872147051266}
+    - target: {fileID: 241732270957821158, guid: 4b43d48bea5adf14898ff62647852889,
+        type: 3}
+      propertyPath: damage
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 241732270957821158, guid: 4b43d48bea5adf14898ff62647852889,
+        type: 3}
+      propertyPath: beginningAmmo
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 5053173982673783935, guid: 4b43d48bea5adf14898ff62647852889,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -518,7 +593,7 @@ PrefabInstance:
     - target: {fileID: 8105110635094916716, guid: 4b43d48bea5adf14898ff62647852889,
         type: 3}
       propertyPath: m_Name
-      value: SubmachineGun
+      value: PlayerUzi
       objectReference: {fileID: 0}
     - target: {fileID: 8105110635094916716, guid: 4b43d48bea5adf14898ff62647852889,
         type: 3}
@@ -527,6 +602,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b43d48bea5adf14898ff62647852889, type: 3}
+--- !u!1 &841529956181355641 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8105110635094916716, guid: 4b43d48bea5adf14898ff62647852889,
+    type: 3}
+  m_PrefabInstance: {fileID: 8923482608316748309}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4465018665046957674 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5053173982673783935, guid: 4b43d48bea5adf14898ff62647852889,
