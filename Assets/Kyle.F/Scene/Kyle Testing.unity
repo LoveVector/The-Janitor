@@ -319,13 +319,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   speed: 10
-  wSpeed: 11
   dashT: 5
   dashSp: 1
   jumpH: 10
-  slideSpeed: 12
-  slideTime: 0
-  slideTimeMax: 3
+  weaponsEnabled: 1
+  weapons: []
 --- !u!54 &480225524
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -681,13 +679,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   speed: 10
-  wSpeed: 0
   dashT: 0.25
   dashSp: 10
   jumpH: 7
-  slideSpeed: 0
-  slideTime: 0
-  slideTimeMax: 0
+  weaponsEnabled: 0
+  weapons: []
 --- !u!54 &1074473595
 Rigidbody:
   m_ObjectHideFlags: 0
