@@ -5733,9 +5733,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17189bfa16e3ea643afc3c6e4815ea9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runSpeed: 5
-  walkSpeed: 10
-  cameraTransform: {fileID: 833371806}
+  player: {fileID: 0}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  speed: 0
+  dashT: 0
+  dashSp: 0
+  jumpH: 0
+  weaponsEnabled: 0
+  weapons: []
 --- !u!136 &1399690185
 CapsuleCollider:
   m_ObjectHideFlags: 0
