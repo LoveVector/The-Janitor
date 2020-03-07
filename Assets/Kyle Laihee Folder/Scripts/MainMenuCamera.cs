@@ -14,12 +14,12 @@ public static class DefineLerp
 }
 public class MainMenuCamera : MonoBehaviour
 {
-    public Transform playCamera1;
-    public Transform playCamera2;
+    //public Transform playCamera1;
+    //public Transform playCamera2;
     public Transform[] cameraOptions;
     public TextMeshPro[] menuTexts;
     public float transitionSpeed;
-    Transform currentView;
+    private Transform currentView;
     TextMeshPro currentText;
     [SerializeField]
     int viewIndex = 0;
@@ -56,11 +56,6 @@ public class MainMenuCamera : MonoBehaviour
                 colorIndex++;
                 viewIndex++;
             }
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-
         }
 
         menuTexts[colorIndex].color = Color.red;

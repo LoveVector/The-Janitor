@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Kyle Laihee Folder/Scenes/Main Menu.unity
     guid: 331080426de4e6744963078ded4afc5b
+  - enabled: 1
+    path: Assets/Kyle Laihee Folder/Scenes/Level 1 Office.unity
+    guid: 93fb2dee14e096b4ca1668faa72dc0b0
   m_configObjects: {}
