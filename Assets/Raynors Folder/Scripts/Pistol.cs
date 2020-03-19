@@ -15,15 +15,18 @@ public class Pistol : Guns
     // Update is called once per frame
     void Update()
     {
+        AnimationCheck();
         Fire();
-        Reload();
+        if (ammo == 0 || Input.GetKeyDown(KeyCode.R) && isReloading != true)
+        {
+            Reload();
+        }
     }
 
     public override void Reload()
     {
-        if(ammo == 0)
-        {
-            ammo = beginningAmmo;
-        }
+      Debug.Log("Random");
+      anim.SetTrigger("reload");
+      ammo = beginningAmmo;
     }
 }

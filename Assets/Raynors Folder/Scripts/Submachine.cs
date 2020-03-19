@@ -39,12 +39,12 @@ public class Submachine : Guns
                 RaycastHit hit;
                 if (Physics.Raycast(startPoint, cam.transform.forward, out hit, range))
                 {
-                    bulletScript.target = hit.point;
-                    bulletScript.hit = hit;
+                   // bulletScript.target = hit.point;
+                   // bulletScript.hit = hit;
                 }
                 else
                 {
-                    bulletScript.target = startPoint + cam.transform.forward * range;
+                   // bulletScript.target = startPoint + cam.transform.forward * range;
                 }
                 recoilY += 0.4f;
             }

@@ -9,6 +9,9 @@ public class CameraLook : MonoBehaviour
     public float RotSpeed = 6f;
     public GameObject camera;
 
+    float sideRecoil = 0;
+    float upRecoil = 0;
+
     float headsp = 1;
     float stepcount;
     float xamount = 1;
@@ -32,10 +35,28 @@ public class CameraLook : MonoBehaviour
 
     void CameraRotate()
     {
-        rotX += Input.GetAxis("Mouse X") * RotSpeed;
-        rotY += Input.GetAxis("Mouse Y") * RotSpeed;
+        rotX += sideRecoil + Input.GetAxis("Mouse X") * RotSpeed;
+        rotY += upRecoil + Input.GetAxis("Mouse Y") * RotSpeed;
         rotY = Mathf.Clamp(rotY, -90f, 90f);
+
+        upRecoil -= 30 * Time.deltaTime;
+        sideRecoil -= 30 * Time.deltaTime;
+        
+        if(upRecoil <= 0)
+        {
+            upRecoil = 0;
+        }
+        if(sideRecoil <= 0)
+        {
+            sideRecoil = 0;
+        }
         camera.transform.localRotation = Quaternion.Euler(-rotY, 0f, 0f);
         transform.rotation = Quaternion.Euler(0f, rotX, 0f);
+    }
+
+    public void AddRecoil(float side, float up)
+    {
+        sideRecoil = side;
+        upRecoil = up;
     }
 }

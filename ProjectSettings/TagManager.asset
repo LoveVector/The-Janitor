@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - ExplosiveBarrel
+  - Metal
+  - Target
+  - Barrel
   layers:
   - Default
   - TransparentFX
@@ -17,7 +21,7 @@ TagManager:
   - Player
   - Enemy
   - PlayerBullet
-  - 
+  - Barrel
   - 
   - 
   - 
