@@ -13,6 +13,9 @@ public abstract class Guns : MonoBehaviour
     public float fireRate;
     protected float lastShot = 0;
 
+    protected bool isReloading = false;
+    protected bool isHolster = false;
+
     protected Animator anim;
 
     public GameObject firePoint;
@@ -33,21 +36,39 @@ public abstract class Guns : MonoBehaviour
             anim.SetTrigger("Fire");
             lastShot = Time.time + fireRate;
 
-            GameObject newBull = Instantiate(bullet, firePoint.transform.position, firePoint.transform.rotation);
-            bulletScript = newBull.GetComponent<BulletScript>();
-            bulletScript.damage = damage;
+          // GameObject newBull = Instantiate(bullet, firePoint.transform.position, firePoint.transform.rotation);
+          // bulletScript = newBull.GetComponent<BulletScript>();
+          // bulletScript.damage = damage;
 
             RaycastHit hit;
-            if (Physics.Raycast(startPoint, cam.transform.forward, out hit, range))
+
+            if(Physics.Raycast(startPoint, cam.transform.forward, out hit, range))
             {
-                Debug.Log("Hitpoint");
-                bulletScript.target = hit.point;
-                bulletScript.hit = hit;
+                if (hit.collider.gameObject.layer == enemyLayer)
+                {
+                    Debug.Log("Enemydet");
+                    EnemyAbstract basic = hit.collider.gameObject.GetComponentInParent<EnemyAbstract>();
+                    basic.hit = hit;
+                    basic.Damage(damage);
+                }
+                else
+                {
+                  if(hit.rigidbody != null)
+                  {
+                      hit.rigidbody.AddForce(-hit.normal * 10);
+                  }
+                }
             }
-            else
-            {
-                bulletScript.target = startPoint + cam.transform.forward * range; 
-            }
+          // if (Physics.Raycast(startPoint, cam.transform.forward, out hit, range))
+          // {
+          //     Debug.Log("Hitpoint");
+          //     bulletScript.target = hit.point;
+          //     bulletScript.hit = hit;
+          // }
+          // else
+          // {
+          //     bulletScript.target = startPoint + cam.transform.forward * range; 
+          // }
         }
     }
 
@@ -65,6 +86,28 @@ public abstract class Guns : MonoBehaviour
                 ammo = ammoCap;
                 ammoCap -= ammoCap;
             }
+        }
+    }
+
+    protected void AnimationCheck()
+    {
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Reload"))     
+        {
+            isReloading = true;
+        }
+        else
+        {
+            isReloading = false;
+        }
+
+        //Check if inspecting weapon
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Holster"))
+        {
+            isHolster = true;
+        }
+        else
+        {
+            isHolster = false;
         }
     }
 }

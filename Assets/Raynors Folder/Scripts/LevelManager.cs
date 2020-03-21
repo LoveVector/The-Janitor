@@ -69,7 +69,7 @@ public class LevelManager : MonoBehaviour
     public void Spawn(GameObject enemy,Transform spawnPosition)
     {
         GameObject enemy1 = Instantiate(enemy, spawnPosition);
-        EnemyAbstract enemyCode = enemy.GetComponent<EnemyAbstract>();
+        EnemyAbstract enemyCode = enemy1.GetComponent<EnemyAbstract>();
         enemyCode.player = player;
         enemyCode.level = this;
     }

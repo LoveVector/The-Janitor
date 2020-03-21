@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class BulletScript : MonoBehaviour
 {
-    public float speed;
     public float despawnTime;
 
+    public Vector3 direction;
+
     public int damage;
-
-    public Vector3 target;
-    Vector3 movement;
-
-    public RaycastHit hit;
 
     int enemyLayer;
 
@@ -27,29 +23,18 @@ public class BulletScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Vector3 norm = (target - transform.position).normalized;
-        //Vector3 distance = (target - transform.position);
-        //if (distance.magnitude <= norm.magnitude)
-        //{
-        //    Destroy(this.gameObject);
-        //}
-        //else
-        //{
-        //    rb.velocity = (target - transform.position).normalized * speed * Time.deltaTime;
-        //}
-
-        transform.position = Vector3.MoveTowards(transform.position, target, Time.deltaTime * speed);
-        Destroy(this.gameObject, 1.5f);
+        Destroy(this.gameObject, 1f);
     }
 
-    private void OnTriggerEnter(Collider other)
-    {   
-        if(other.gameObject.layer == enemyLayer)
-        {
-            EnemyAbstract basic = other.gameObject.GetComponentInParent<EnemyAbstract>();
-            basic.hit = hit;
-            basic.Damage(damage);
-        }
-            Destroy(this.gameObject);
-    }
+   // private void OnTriggerEnter(Collider other)
+   // {   
+   //     Debug.Log("Coll");
+   //     if(other.gameObject.layer == enemyLayer)
+   //     {
+   //         EnemyAbstract basic = other.gameObject.GetComponentInParent<EnemyAbstract>();
+   //         //other.GetComponent<Rigidbody>().AddForce(10f);
+   //         basic.Damage(damage);
+   //     }
+   //         Destroy(this.gameObject);
+   // }
 }
