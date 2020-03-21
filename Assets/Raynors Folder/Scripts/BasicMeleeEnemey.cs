@@ -60,7 +60,7 @@ public class BasicMeleeEnemey : EnemyAbstract
                 anim.enabled = false;
                 if (deadForce == false)
                 {
-                    rb.AddForce(-hit.normal * 100);
+                    rb.AddForce(-hit.normal * 500);
                     level.DeadEnemy();
                     deadForce = true;
                     Destroy(this.gameObject, 5f);
@@ -85,7 +85,6 @@ public class BasicMeleeEnemey : EnemyAbstract
 
     void Chasing()
     {
-        Debug.Log("Doing");
         Vector3 distance = (player.transform.position - transform.position).normalized;
         transform.LookAt(new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z));
         transform.position += distance * speed * Time.deltaTime;
@@ -93,7 +92,7 @@ public class BasicMeleeEnemey : EnemyAbstract
 
     void Attacking()
     {
-        Debug.Log("This");
+        //Debug.Log("This");
         if (Time.time - lastAttack >= attackRate)
         {
             lastAttack = Time.time + attackRate;
