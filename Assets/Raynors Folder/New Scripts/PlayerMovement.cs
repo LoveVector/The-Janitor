@@ -52,7 +52,6 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(sprint);
         view.transform.localPosition = Vector3.Lerp(view.transform.localPosition, camPosition, 5 * Time.deltaTime);
 
         if (Input.GetKeyDown(KeyCode.LeftControl))
@@ -60,10 +59,6 @@ public class PlayerMovement : MonoBehaviour
             Crouch();
         }
 
-        if (!isGrounded)
-        {
-            Debug.Log("Hitting ground");
-        }
         RaycastHit hit;
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -86,21 +81,6 @@ public class PlayerMovement : MonoBehaviour
 
         RaycastHit hit;
         isGrounded = Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 1, groundLayer);
-
-      // if (Input.GetKeyDown(KeyCode.Space))
-      // {
-      //     isGrounded = Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 1, groundLayer);
-      //     if (isGrounded)
-      //     {
-      //         rb.velocity = new Vector3(rb.velocity.x, jumpH, rb.velocity.z);
-      //         Debug.Log("Jumping");
-      //     }
-      // }
-
-      // if (Input.GetKeyDown(KeyCode.LeftShift))
-      // {
-      //     StartCoroutine(Dash());
-      //}
     }
 
     IEnumerator Dash()
