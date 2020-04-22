@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 934436130240501741}
   - component: {fileID: 934436130240501742}
-  - component: {fileID: 934436130240501740}
   - component: {fileID: 7374985140067259779}
   - component: {fileID: 7696357459613508607}
+  - component: {fileID: -2417206655617470442}
   m_Layer: 0
   m_Name: Tofu
   m_TagString: Player
@@ -60,7 +60,36 @@ MonoBehaviour:
   level: {fileID: 0}
   rb: {fileID: 0}
   model: {fileID: 934436130504550529}
---- !u!95 &934436130240501740
+--- !u!54 &7374985140067259779
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 934436130240501743}
+  serializedVersion: 2
+  m_Mass: 500
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 2
+  m_Constraints: 0
+  m_CollisionDetection: 2
+--- !u!65 &7696357459613508607
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 934436130240501743}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.46416616, z: 0.5462099}
+  m_Center: {x: 0, y: -0.881546, z: -0.0037032664}
+--- !u!95 &-2417206655617470442
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
@@ -79,35 +108,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!54 &7374985140067259779
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 934436130240501743}
-  serializedVersion: 2
-  m_Mass: 500
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!65 &7696357459613508607
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 934436130240501743}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 0.46416616, z: 0.5462099}
-  m_Center: {x: 0, y: -0.881546, z: -0.0037032664}
 --- !u!1 &934436130504550529
 GameObject:
   m_ObjectHideFlags: 0

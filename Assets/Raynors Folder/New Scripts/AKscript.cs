@@ -52,9 +52,17 @@ public class AKscript : GunsNew
                 Debug.Log("haha");
                 if (hit.collider.gameObject.layer == enemyLayer)
                 {
-                    EnemyAbstract basic = hit.collider.gameObject.GetComponentInParent<EnemyAbstract>();
-                    basic.hit = hit;
-                    basic.Damage(damage);
+                    if (hit.collider.gameObject.GetComponentInParent<EnemyAbstract>() != null)
+                    {
+                        EnemyAbstract basic = hit.collider.gameObject.GetComponentInParent<EnemyAbstract>();
+                        basic.hit = hit;
+                        basic.Damage(damage);
+                    }
+                    else
+                    {
+                        BossGOAP basic = hit.collider.gameObject.GetComponentInParent<BossGOAP>();
+                        basic.Damage(damage);
+                    }
                 }
                 else if(hit.collider.gameObject.layer == barrelLayer)
                 {
@@ -68,7 +76,6 @@ public class AKscript : GunsNew
                     }
                 }
             }
-
         }
     }
 }
