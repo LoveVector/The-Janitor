@@ -4,8 +4,16 @@
 TagManager:
   serializedVersion: 2
   tags:
+<<<<<<< HEAD
   - Ground
   - Enemy
+=======
+  - Enemy
+  - ExplosiveBarrel
+  - Metal
+  - Target
+  - Barrel
+>>>>>>> fix
   layers:
   - Default
   - TransparentFX
@@ -15,11 +23,19 @@ TagManager:
   - UI
   - 
   - 
+<<<<<<< HEAD
   - Ground
   - Enemy
   - 
   - 
   - 
+=======
+  - Player
+  - Enemy
+  - PlayerBullet
+  - Barrel
+  - Unwalkable
+>>>>>>> fix
   - 
   - 
   - 
