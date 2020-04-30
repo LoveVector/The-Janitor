@@ -91,7 +91,7 @@ public class EnemyBOID : BOIDS
                     targetposition.x -= 1 + xoffset; //startx; 
                 }
 
-                Neighbours[i].transform.position = targetposition; //Vector3.MoveTowards(Neighbours[i].transform.position, targetposition, 2);
+               // Neighbours[i].transform.position = Vector3.MoveTowards(Neighbours[i].transform.position, targetposition, 2);
                                                                    //steering = steering + arrive(behind, 5);
                                                                    force += arrive(targetposition, LEADER_BEHIND_DIST);
             }
@@ -180,5 +180,5 @@ public class EnemyBOID : BOIDS
         //  Vector3.ClampMagnitude(velocity, (!leader ? MAX_VELOCITY * (0.3f + Random.Range(0.1f, 0.5f)) : MAX_VELOCITY));
 
         return force;
-     }
+    }
 }

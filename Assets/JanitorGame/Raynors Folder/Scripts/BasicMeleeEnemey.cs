@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BasicMeleeEnemey : EnemyAbstract
 {
-    enum state { chasing, attacking, dead}
+    enum state { chasing, attacking, dead, leaderfollow}
     state enemyState;
 
     public GameObject model;
@@ -13,7 +13,12 @@ public class BasicMeleeEnemey : EnemyAbstract
 
     bool move = false;
 
+    public bool leader;
+
     bool deadForce;
+
+    PlayerHealth pHealth;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +32,9 @@ public class BasicMeleeEnemey : EnemyAbstract
 
         deadForce = false;
 
-        StartCoroutine("GetPlayerDirection");
+        pHealth = FindObjectOfType<PlayerHealth>();
+
+        //StartCoroutine("GetPlayerDirection");
 
         if(player == null)
         {
@@ -39,11 +46,17 @@ public class BasicMeleeEnemey : EnemyAbstract
     void Update()
     {
         HealthCheck();
+        getNeighbors();
         if (dead != true)
         {
-            if (Vector3.Distance(transform.position, player.transform.position) >= 3)
+            if (Vector3.Distance(transform.position, player.transform.position) >= 1.5)
             {
-                enemyState = state.chasing;
+                if (neighbors.Length > 3)
+                {
+                    enemyState = state.leaderfollow;
+                }
+                else
+                    enemyState = state.chasing;
             }
             else
             {
@@ -59,6 +72,9 @@ public class BasicMeleeEnemey : EnemyAbstract
         {
             case state.chasing:
                 Chasing();
+                break;
+            case state.leaderfollow:
+                LeaderFollow();
                 break;
             case state.attacking:
                 Attacking();
@@ -92,23 +108,34 @@ public class BasicMeleeEnemey : EnemyAbstract
 
     void Chasing()
     {
-        if (move == true)
-        {
-            if (waypoints != null)
-            {
-                transform.position = Vector3.MoveTowards(this.transform.position, waypoints[0], speed * Time.deltaTime);
-                transform.LookAt(new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z));
+        //if (move == true)
+        //{
+        //    //if (waypoints != null)
+        //    //{
+        //        //transform.position = Vector3.MoveTowards(this.transform.position, waypoints[0], speed * Time.deltaTime);
+        //        //transform.LookAt(new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z));
+        //
+        //        //if (this.transform.position == waypoints[0])
+        //        //{
+        //            //waypoints.RemoveAt(0);
+        //            //if (waypoints.Count == 0)
+        //            //{
+        //                //waypoints = Pathfinding.Instance.PathFind(this.transform.position, player.transform.position);
+        //            //}
+        //        //}
+        //    //}
+        //}
 
-                if (this.transform.position == waypoints[0])
-                {
-                    waypoints.RemoveAt(0);
-                    if (waypoints.Count == 0)
-                    {
-                        waypoints = Pathfinding.Instance.PathFind(this.transform.position, player.transform.position);
-                    }
-                }
-            }
-        }
+        this.transform.position = Vector3.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
+        TurnToTarget(player.transform.position);
+
+    }
+
+    void LeaderFollow()
+    {
+        this.transform.position = Vector3.MoveTowards(this.transform.position, targetposition, speed * Time.deltaTime);
+        TurnToTarget(player.transform.position);
+        separation();
     }
 
     void Attacking()
@@ -116,9 +143,9 @@ public class BasicMeleeEnemey : EnemyAbstract
         if (Time.time - lastAttack >= attackRate)
         {
             lastAttack = Time.time + attackRate;
-            int attackType = Random.Range(0, 2);
-            anim.SetFloat("AttackBlend", attackType);
             anim.SetTrigger("Attack");
+            pHealth.playerHealth -= attackDamage;
+            Debug.Log("Attacking");
         }
     }
 
@@ -126,7 +153,7 @@ public class BasicMeleeEnemey : EnemyAbstract
     {
         yield return new WaitForSeconds(Random.Range(0.1f, 0.6f));
         move = true;
-        waypoints = Pathfinding.Instance.PathFind(this.transform.position, player.transform.position);
+        waypoints = Pathfinding.Instance.PathFind(this.transform.position, targetposition);
         StartCoroutine("GetPlayerDirection");
     }
 }
